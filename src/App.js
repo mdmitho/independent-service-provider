@@ -5,6 +5,7 @@ import CheckoutPage from './Components/CheckoutPage/CheckoutPage';
 import Header from './Components/Header/Header';
 import Home from './Components/Home/Home';
 import Login from './Components/Login/Login';
+import NotFound from './Components/NotFound/NotFound';
 import Service from './Components/Service/Service'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
        <Route path='/service' element={<Service></Service>}></Route>
        <Route path='/login'element={<Login></Login>}></Route>
        <Route path='/checkoutPage' element={<CheckoutPage></CheckoutPage>}></Route>
+       <Route path='*' element={<NotFound></NotFound>}></Route>
      </Routes>
      
     </div>

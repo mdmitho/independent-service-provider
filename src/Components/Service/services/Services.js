@@ -1,6 +1,7 @@
 import React from 'react';
 import './Services.css'
-import Button from 'react-bootstrap/Button'
+
+import { Link } from 'react-router-dom';
 
 const Services = (props) => {
     console.log(props);
@@ -20,7 +21,7 @@ const Services = (props) => {
                 
             </div>
             <div className="text-center mb-3">
-                <Button variant="info" className='text-white'>Checkout Page</Button>
+                <Link to='checkoutPage' className='btn btn-info text-white'>Checkout Page</Link>
             </div>
         </div>
     </div>
