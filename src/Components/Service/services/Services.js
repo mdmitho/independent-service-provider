@@ -7,8 +7,8 @@ const Services = (props) => {
     console.log(props);
   const {title,img,description,price}=props.service
     return (
-        <div className="col">
-        <div className="card">
+        <div className="col ">
+        <div className="card shadow p-3 mb-5 bg-body rounded">
           <div className="">
           <img  src={img} className=" img w-100" alt="" />
           </div>
