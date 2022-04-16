@@ -21,7 +21,7 @@ const Services = (props) => {
                 
             </div>
             <div className="text-center mb-3">
-                <Link to='checkoutPage' className='btn btn-info text-white'>Checkout Page</Link>
+                <Link to='/checkoutPage' className='btn btn-info text-white'>Checkout Page</Link>
             </div>
         </div>
     </div>
