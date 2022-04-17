@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "../Slider/Slider";
-import Service from "../Service/Service";
+
 import useDentist from "../hooks/useDentist";
 import Services from "../Service/services/Services";
 import Footer from "../Footer/Footer";
