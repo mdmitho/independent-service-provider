@@ -16,7 +16,7 @@ const SignUp = () => {
     const [errors, setErrors] = useState({
         email: "",
         password: "",
-        general: "",
+        
     })
 
     const [
@@ -24,7 +24,7 @@ const SignUp = () => {
         user,
         loading,
         hookError,
-      ] = useCreateUserWithEmailAndPassword(auth);
+      ] = useCreateUserWithEmailAndPassword(auth,{ sendEmailVerification: true });
 
 const handleEmailChange =(e)=>{
     const emailCheck =/\S+@\S+\.\S+/;
@@ -37,7 +37,36 @@ const handleEmailChange =(e)=>{
         setUserInfo({...userInfo, email: ""})
     }
 }
+const handlePasswordChange =(e)=>{
+    const passwordCheck = /.{6,}/;
+    const validPassword = passwordCheck.test(e.target.value);
+    if(validPassword){
+        setUserInfo({...userInfo, password: e.target.value});
+        setErrors({...errors, password: ""});
+    } else {
+        setErrors({...errors, password: "Minimum 6 characters!"});
+        setUserInfo({...userInfo, password: ""})
+    }
+}
 
+const handleConfirmPassword =(e)=>{
+    if (e.target.value === userInfo.password) {
+        setUserInfo({ ...userInfo, confirmPass:e.target.value });
+        setErrors({ ...errors, password: "" });
+       
+    } else {
+        setErrors({ ...errors, password:"Password's don't match" });
+        setUserInfo({ ...userInfo, confirmPass: "" });
+        
+    }
+    toast.success('Successfully toasted!')
+}
+
+const handleLogin=(e)=>{
+    e.preventDefault();
+    createUserWithEmailAndPassword(userInfo.email, userInfo.password)
+    
+}
 useEffect(() => {
     const error = hookError 
     if(error){
@@ -50,39 +79,18 @@ useEffect(() => {
                 toast.error("Wrong password!!")
                 break;
             default:
-                toast.error("something went wrong!!")
+               error("something went wrong!!")
         }
     }
 }, [hookError])
 
-const handlePasswordChange =(e)=>{
-    const passwordCheck = /.{6,}/;
-    const validPassword = passwordCheck.test(e.target.value);
-    if(validPassword){
-        setUserInfo({...userInfo, password: e.target.value});
-        setErrors({...errors, password: ""});
-    } else {
-        setErrors({...errors, password: "Minimum 6 characters!"});
-        setUserInfo({...userInfo, password: ""})
-    }
-}
-const handleConfirmPassword =(e)=>{
-    if (e.target.value === userInfo.password) {
-        setUserInfo({ ...userInfo, confirmPass: e.target.value });
-        setErrors({ ...errors, password: "" });
-    } else {
-        setErrors({ ...errors, password:"Password's don't match" });
-        setUserInfo({ ...userInfo, confirmPass: "" });
-    }
-}
 
-const handleLogin=(e)=>{
-    e.preventDefault();
-    createUserWithEmailAndPassword(userInfo.email, userInfo.password)
-}
+    
+
+
 const navigate = useNavigate();
 const location = useLocation();
-const from = location.state?.from?.pathname || "/";
+let from = location.state?.from?.pathname || "/";
 
 useEffect(() => {
     if (user) {
@@ -107,17 +115,18 @@ useEffect(() => {
   <Form.Group className="mb-3" controlId="formBasicPassword">
     <Form.Label>Password</Form.Label>
     <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange}/>
+    {errors?.password && <p className="text-danger mt-2">{errors.password}</p>}
   </Form.Group>
 
   <Form.Group className="mb-3" controlId="formBasicPassword">
     <Form.Label>Confirm Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" onChange={handleConfirmPassword}/>
+    <Form.Control type="password" placeholder="confirm Password" onChange={handleConfirmPassword}/>
   </Form.Group>
   <Form.Group className="mb-3" controlId="formBasicCheckbox">
     {/* <Form.Check type="checkbox" label="Check me out" /> */}
   </Form.Group>
  <div className="text-center mt-3 ">
- <Button variant="info" type="submit" className='text-white px-4'>
+ <Button  variant="info" type="submit" className='text-white px-4'>
     Sign Up
   </Button>
   <Toaster />
