@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import auth from '../../firebase.init'
 
 const Login = () => {
+    const [userInfo, setUserInfo] = useState({
+        email: "",
+        password: "",
+    })
+
+
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useCreateUserWithEmailAndPassword(auth);
+
+const handleEmailChange =(e)=>{
+    const email =e.target.value
+    setUserInfo({email})
+}
+
+const handlePasswordChange =(e)=>{
+    const password = e.target.value
+    setUserInfo({password})
+}
+
+const handleLogin=(e)=>{
+    e.preventDefault()
+    console.log(userInfo)
+    createUserWithEmailAndPassword(userInfo.email, userInfo.password)
+}
+
     return (
         <div className='container w-50 shadow-lg p-3 mb-5 bg-body rounded-3 mt-5 '>
             <div className="text-center">
@@ -11,15 +42,15 @@ const Login = () => {
             </div>
            
 
-            <Form>
+            <Form onBlur={handleLogin}>
   <Form.Group className="mb-3" controlId="formBasicEmail">
     <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" />
+    <Form.Control type="email" placeholder="Enter email" onChange={handleEmailChange} />
   </Form.Group>
 
   <Form.Group className="mb-3" controlId="formBasicPassword">
     <Form.Label>Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" />
+    <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange}/>
   </Form.Group>
   <Form.Group className="mb-3" controlId="formBasicCheckbox">
     <Form.Check type="checkbox" label="Check me out" />
