@@ -1,8 +1,8 @@
-# Getting Started with Create React App
+#  DENTIST CARE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is best for you DENTIST CARE [Check the website](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Available ScDENTIST SERVICE
 
 In the project directory, you can run:
 
